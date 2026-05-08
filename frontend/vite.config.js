@@ -5,8 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/upload": "http://localhost:3001",
-      "/ask": "http://localhost:3001",
+      "/upload": "https://notebooklm-gcqi.onrender.com",
+      "/ask": "https://notebooklm-gcqi.onrender.com",
     },
   },
 });
