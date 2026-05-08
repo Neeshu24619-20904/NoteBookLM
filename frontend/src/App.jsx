@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-const API = import.meta.env.VITE_API_URL || "";
+const API = "https://notebooklm-gcqi.onrender.com";
 
 function UploadZone({ onUpload, isLoading }) {
   const [dragging, setDragging] = useState(false);
