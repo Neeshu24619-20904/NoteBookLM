@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-const API = "http://localhost:3001";
-// const API = "https://notebooklm-gcqi.onrender.com";
+// const API = "hlocalhost:ttp://3001";
+const API = "https://notebooklm-gcqi.onrender.com";
+
 
 function UploadZone({ onUpload, isLoading }) {
   const [dragging, setDragging] = useState(false);
