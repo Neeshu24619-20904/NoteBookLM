@@ -1,0 +1,79 @@
+[
+  {
+    "embeddingId": 0,
+    "text": "NutriSnap\nHover. Detect. Know. — The Indian Food Tracker Young India Actually Needs\niQOO Hackathon 2026 · Bengaluru · 13–14 June 2026\nTrack: On-Device AI · Domain: Health & Wellness · Solo Build\nHackathon Submission Fields\nYour Idea\nlimit: 2000 chars characters\nNutriSnap  is  a  zero-friction,  on-device  AI  nutrition  assistant  built  specifically  for  Indian  meals  and  the\nyoung, health-conscious generation that wants to eat better but finds existing apps too tedious to stick\nwith.  The  core  interaction  is  unlike  anything  that  exists  today:  tap  a  home  screen  widget,  hover  your\niQOO phone over your thali or plate, and within seconds a floating report appears — dishes detected,\nmacro  breakdown,  and  a  verdict  based  on  your  personal  goal  (lose  weight,  build  muscle,  manage\nenergy).  No  photo  taken.  No  app  opened.  No  typing.  The  entire  interaction  is  under  5  seconds.  The",
+    "index": 0,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 1,
+    "text": "a  verdict  based  on  your  personal  goal  (lose  weight,  build  muscle,  manage\nenergy).  No  photo  taken.  No  app  opened.  No  typing.  The  entire  interaction  is  under  5  seconds.  The\non-device  AI  vision  model  runs  entirely  on  the  iQOO  processor  using  TensorFlow  Lite  —  no  internet\nrequired, no images sent to any server, instant results. Trained specifically on Indian dishes: dal, sabzi,\nroti, rice, curries, street food — the food young Indians actually eat, not the Western-centric database\nthat  MyFitnessPal  was  built  for.  NutriSnap  does  not  pretend  to  give  exact  calorie  counts.  It  gives\nhonest, goal-filtered feedback: 'high carb meal, not ideal for your weight loss goal today' or 'low protein,\nconsider  adding  paneer  at  dinner.'  Trends  over  precision.  That  is  what  actually  changes  behaviour.\nIndia  has  300M+  people  managing  lifestyle  diseases  and  a  generation  of  young  adults  becoming",
+    "index": 1,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 2,
+    "text": "paneer  at  dinner.'  Trends  over  precision.  That  is  what  actually  changes  behaviour.\nIndia  has  300M+  people  managing  lifestyle  diseases  and  a  generation  of  young  adults  becoming\nacutely aware of what they eat — with zero tools built for their diet. NutriSnap is built for them, on the\ndevice they already carry, requiring almost nothing from them at all.\nWhy Is This Different?\nlimit: 600 chars characters\nEvery existing nutrition app was built for Western food and asks too much — open app, search dish,\nscroll  entries,  enter  portions,  repeat.  Indians  give  up  within  days.  NutriSnap  flips  this  entirely:  tap  a\nwidget, hover your iQOO camera over your meal, get an instant AI report — no photo snapped, no app\nopened,  no  typing.  The  model  runs  fully  on-device,  works  offline,  and  is  trained  on  Indian  dishes\nspecifically. No app in the world offers live camera-feed food detection without a shutter tap. Built for\nhow young Indians actually eat.",
+    "index": 2,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 3,
+    "text": "works  offline,  and  is  trained  on  Indian  dishes\nspecifically. No app in the world offers live camera-feed food detection without a shutter tap. Built for\nhow young Indians actually eat.\nTarget Audience: Young India's Health Awakening\nThere  is  a  massive,  underserved  wave  happening  right  now.  Young  Indians  between  18  and  32  are\nacutely  aware  of  their  health  —  more  than  any  generation  before  them  —  but  they  are  failing  at  food",
+    "index": 3,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 4,
+    "text": "wave  happening  right  now.  Young  Indians  between  18  and  32  are\nacutely  aware  of  their  health  —  more  than  any  generation  before  them  —  but  they  are  failing  at  food\n\ntracking not because they don't care, but because the tools are too inconvenient to stick with. This is\nthe audience NutriSnap is built for.\nThe Numbers\nAccording to ICMR, over 77 million Indians have diabetes — the fastest-growing cohort is adults under\n35.  Add  a  post-COVID  generation  hyper-aware  of  immunity,  weight,  and  energy  levels.  There  is  a\nmassive, unmet need.\nWhy Young Indians Specifically?\n•They are motivated — fitness reels, macro tracking, protein obsession dominates Instagram and\nYouTube\n•They eat Indian food — dal-roti-sabzi, thalis, street food — none of which existing apps handle well\n•They are phone-native — a widget-first, zero-friction interaction is exactly what this generation\nexpects",
+    "index": 4,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 5,
+    "text": "Indian food — dal-roti-sabzi, thalis, street food — none of which existing apps handle well\n•They are phone-native — a widget-first, zero-friction interaction is exactly what this generation\nexpects\n•They give up fast — any app requiring more than 3 taps to log a meal gets uninstalled within a week\n•They are goal-driven — not calorie-obsessed, but outcome-obsessed: 'is this good for my\ncut/bulk/energy?'\nThe Gap Nobody Has Filled\nAppProblem for Young Indians\nMyFitnessPalWestern food database. Searching 'dal tadka' returns 50 unverified entries\nHealthifyMeRequires manual logging, photo + confirmation steps, subscription paywall\nGoogle LensIdentifies food visually but gives zero nutrition context or goal feedback\nCalAI / SnackUS-centric, poor Indian dish recognition, no offline support\nNutriSnap 3Built for Indian food, hover-to-detect, goal-filtered, fully offline\nThe Idea: Full Breakdown\nCore Interaction — 5 seconds, zero friction",
+    "index": 5,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 6,
+    "text": "poor Indian dish recognition, no offline support\nNutriSnap 3Built for Indian food, hover-to-detect, goal-filtered, fully offline\nThe Idea: Full Breakdown\nCore Interaction — 5 seconds, zero friction\nTap home screen widget → Hover iQOO camera over meal → AI detects dishes live (no shutter tap) →\nFloating report appears → Auto-saved to log. App never opened.\nHow the Hover Detection Works",
+    "index": 6,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 7,
+    "text": "friction\nTap home screen widget → Hover iQOO camera over meal → AI detects dishes live (no shutter tap) →\nFloating report appears → Auto-saved to log. App never opened.\nHow the Hover Detection Works\n\nUnlike every existing food app that requires you to snap a photo, NutriSnap runs the AI model continuously\non  the  live  camera  feed  using  CameraX  +  TensorFlow  Lite.  When  the  model's  confidence  for  detected\ndishes  crosses  85%,  it  auto-locks  the  frame,  generates  the  report,  and  dismisses  the  camera.  The  user\nsees it as magic — hover and know.\nGoal-Based Feedback Engine\nUsers set one goal on first launch. Every output is filtered through that goal — no confusing numbers, just\nclear verdicts.\nYour GoalWhat NutriSnap Tells You\nLose weightFlags high-cal meals, suggests lighter swaps for the rest of the day\nBuild muscleProtein check every meal, flags low-protein plates\nManage diabetesCarb/GI alert — warns on heavy rice or maida-based meals",
+    "index": 7,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 8,
+    "text": "high-cal meals, suggests lighter swaps for the rest of the day\nBuild muscleProtein check every meal, flags low-protein plates\nManage diabetesCarb/GI alert — warns on heavy rice or maida-based meals\nControl BPSodium alert on pickles, papads, and fried snacks\nMore energyBalanced meal score — flags skipped meals or poor macro mix\nOn-Device First — Privacy & Speed\n•No image ever leaves the phone — complete privacy\n•Works without internet — canteen, hostel, home, anywhere\n•Runs at near real-time on iQOO NPU — no perceptible lag\n•No subscription or account needed for the core feature\nWhy This Is Different\nThe Interaction Model is Novel\nNo  food  tracking  app  —  globally  —  offers  live  camera-feed  food  detection  without  a  shutter  tap.  The\nhover-to-detect pattern is a genuinely new interaction primitive in this category.\nBuilt for Indian Food From the Ground Up\nThe  model  is  fine-tuned  on  Indian  Food-81,  a  dataset  of  80+  Indian  dish  categories.  This  is  not  an",
+    "index": 8,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 9,
+    "text": "interaction primitive in this category.\nBuilt for Indian Food From the Ground Up\nThe  model  is  fine-tuned  on  Indian  Food-81,  a  dataset  of  80+  Indian  dish  categories.  This  is  not  an\nafterthought localisation — Indian dishes are the primary training data.\nZero-Friction by Architecture\nThe widget-first, overlay-report design means the app never needs to be opened. This is an architectural\ndecision that eliminates every drop-off point between intention and action.",
+    "index": 9,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  },
+  {
+    "embeddingId": 10,
+    "text": "by Architecture\nThe widget-first, overlay-report design means the app never needs to be opened. This is an architectural\ndecision that eliminates every drop-off point between intention and action.\n\nThe One-Line Difference\nEvery  other  app  asks  users  to  do  the  work.  NutriSnap  asks  almost  nothing  —  the  iQOO  phone  does\neverything.\nTechnical Stack\nLayerTechnology & Rationale\nOn-device vision modelTensorFlow Lite + MobileNetV3 — fast, small, runs on iQOO NPU\nIndian food datasetIndian Food-81 (Kaggle) — 80 dish categories, fine-tuned\nLive camera inferenceCameraX Jetpack — continuous frame analysis, no shutter\nHome screen widgetAndroid App Widget (RemoteViews) — one tap entry point\nFloating reportAndroid System Overlay — appears without opening the app\nLocal data logRoom Database (SQLite) — offline, instant, private\nLanguageKotlin (Android) + Python (model training and TFLite export)\niQOO Hackathon 2026 · Bengaluru · Idea Submission · NutriSnap",
+    "index": 10,
+    "sourceFilename": "NutriSnap_Submission.pdf",
+    "documentId": "9673a130-4b36-4b89-a70b-7437a23b6f2c"
+  }
+]

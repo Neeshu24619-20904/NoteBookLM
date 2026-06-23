@@ -1,0 +1,86 @@
+[
+  {
+    "embeddingId": 0,
+    "text": "NexusSearch — Search Typeahead System Final Report\nThis document serves as the final submission report, combining the system architecture, setup instructions,\ndataset details, performance metrics, design trade-offs, and UI screenshots.\n1. Architecture Overview\nThe system is designed for high read throughput (autocomplete suggestions) and resilient write buffering\n(search submissions).\nUser Types \"iph\"\n      │\n      ▼\n┌─────────────────┐\n│  React Frontend  │  (Vite + TypeScript + Tailwind)\n│  localhost:3000  │\n└────────┬────────┘\n         │ GET /api/suggest?q=iph\n         ▼\n┌─────────────────┐       ┌─────────────────────────────────┐\n│  FastAPI Backend │──────▶│  Consistent Hash Ring           │\n│  localhost:8000  │       │  ┌──────────┐ ┌──────────┐    │\n└────────┬────────┘       │  │ Redis #1 │ │ Redis #2 │    │\n         │                │  └──────────┘ └──────────┘    │\n         │                │       ┌──────────┐             │",
+    "index": 0,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 1,
+    "text": "┌──────────┐    │\n└────────┬────────┘       │  │ Redis #1 │ │ Redis #2 │    │\n         │                │  └──────────┘ └──────────┘    │\n         │                │       ┌──────────┐             │\n         │                │       │ Redis #3 │             │\n         ▼                │       └──────────┘             │\n┌─────────────────┐       └─────────────────────────────────┘\n│  Trie Service   │\n│  (In-Memory)    │\n└────────┬────────┘\n         │  (on miss)\n         ▼\n┌─────────────────┐\n│   PostgreSQL    │\n│  search_queries │\n└─────────────────┘\nKey Components\nComponentTechnologyRole\nFrontend\nReact, Vite,\nTypeScript, Tailwind\nProvides a debounced (300ms) search input, displaying\nsuggestions and routing telemetry in real-time. Includes an\nAdmin Dashboard.\nfinal_submission.md2026-06-22\n1 / 5",
+    "index": 1,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 2,
+    "text": "Vite,\nTypeScript, Tailwind\nProvides a debounced (300ms) search input, displaying\nsuggestions and routing telemetry in real-time. Includes an\nAdmin Dashboard.\nfinal_submission.md2026-06-22\n1 / 5\n\nComponentTechnologyRole\nBackend API\nFastAPI, Python\n3.12\nOrchestrates requests, manages the in-memory Trie, and\ninterfaces with Redis and PostgreSQL.\nSearch EngineIn-Memory Trie\nPrecomputes and stores the top 10 suggestions at every\nnode, allowing  lookup time where  is prefix length.\nCache Layer\nRedis ×3\n(Consistent\nHashing)\n3 logical nodes map prefix queries via a custom hash ring,\nensuring even distribution and high cache hit rates.\nDatabasePostgreSQL 16\nThe persistent source of truth for all search queries and\nhistorical search event logs.\nAsynchronous\nWorkers\nPython Threading\nBatch Writer: Buffers incoming search POSTs and flushes\nthem to the DB in bulk.\nTrending Scheduler: Recalculates scores based on recent\nsearch volume every 60s.\n2. Dataset Source and Loading Instructions",
+    "index": 2,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 3,
+    "text": "Writer: Buffers incoming search POSTs and flushes\nthem to the DB in bulk.\nTrending Scheduler: Recalculates scores based on recent\nsearch volume every 60s.\n2. Dataset Source and Loading Instructions\nSource: The dataset is synthetically generated to simulate a realistic search engine workload. It uses a\ncombination of word banks (nouns, adjectives, suffixes) and applies a Zipfian (power-law) distribution to\nquery frequencies. This ensures a small number of queries are highly popular (e.g., \"iphone\", \"react\"), while a\nlong tail of queries occurs less frequently.\nSize: 105,000 unique queries, along with simulated historical search events for trending calculations.\nLoading Instructions: The dataset loading is fully automated within the Docker lifecycle:\n1. When docker compose up --build is executed, the backend Dockerfile automatically runs python\nscripts/load_dataset.py before starting the server.\n2. The script generates the 105,000 queries and saves them to dataset/queries.csv.",
+    "index": 3,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 4,
+    "text": "is executed, the backend Dockerfile automatically runs python\nscripts/load_dataset.py before starting the server.\n2. The script generates the 105,000 queries and saves them to dataset/queries.csv.\n3. It bulk-inserts these queries into the PostgreSQL search_queries table.\n4. It generates simulated recent search activity and inserts it into the search_events table to populate\ninitial trending data.\n5. The backend application starts, recalculates trending scores, and loads all 105,000 items into the in-\nmemory Trie.\n3. Screenshots\n(Replace the placeholder links below with the actual paths to your screenshots before converting to PDF)\nSearch Interface\nO(L)L\nfinal_submission.md2026-06-22\n2 / 5",
+    "index": 4,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 5,
+    "text": "the in-\nmemory Trie.\n3. Screenshots\n(Replace the placeholder links below with the actual paths to your screenshots before converting to PDF)\nSearch Interface\nO(L)L\nfinal_submission.md2026-06-22\n2 / 5\n\nShowing the dropdown suggestions and the Consistent Hashing routing badge (Hit/Miss indicator).\nTrending Section\nShowing the dynamically generated trending tags.\nAdmin Dashboard\nfinal_submission.md2026-06-22\n3 / 5",
+    "index": 5,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 6,
+    "text": "suggestions and the Consistent Hashing routing badge (Hit/Miss indicator).\nTrending Section\nShowing the dynamically generated trending tags.\nAdmin Dashboard\nfinal_submission.md2026-06-22\n3 / 5\n\nShowing the latency gauges, cache hit rate chart, and database writes saved metrics.\n4. API Documentation\nEndpointMethodDescriptionExample Request\n/api/suggestGET\nReturns top 10 autocomplete\nsuggestions for a given prefix, checking\nCache -> Trie -> DB.\nGET /api/suggest?\nq=iphone\n/api/searchPOST\nSubmits a completed search query.\nAdded to in-memory batch queue.\nPOST /api/search\n{\"query\": \"react\"}\n/api/trendingGET\nReturns the top 10 globally trending\nsearches based on recency-weighted\nscores.\nGET /api/trending\n/api/cache/debugGET\nReturns which Redis node owns a given\nprefix via Consistent Hashing and its\nhit/miss status.\nGET /api/cache/debug?\nprefix=iph\n/api/metricsGET\nReturns internal telemetry including\nlatency, cache hit rates, and batch write\nsavings.\nGET /api/metrics\n5. Performance Report",
+    "index": 6,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 7,
+    "text": "its\nhit/miss status.\nGET /api/cache/debug?\nprefix=iph\n/api/metricsGET\nReturns internal telemetry including\nlatency, cache hit rates, and batch write\nsavings.\nGET /api/metrics\n5. Performance Report\nBased on internal /api/metrics telemetry gathered during testing:\nLatency:\nCache Hit: ~0.5ms - 2.0ms\nCache Miss (Trie Lookup): ~3.0ms - 8.0ms\nfinal_submission.md2026-06-22\n4 / 5",
+    "index": 7,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 8,
+    "text": "Performance Report\nBased on internal /api/metrics telemetry gathered during testing:\nLatency:\nCache Hit: ~0.5ms - 2.0ms\nCache Miss (Trie Lookup): ~3.0ms - 8.0ms\nfinal_submission.md2026-06-22\n4 / 5\n\np95 Latency: Consistently remains under 10ms due to the  Trie lookup and Redis caching\nlayer.\nCache Hit Rate:\nIn a simulated environment with repeated hot-key queries (e.g., typing \"i\", \"ip\", \"iph\"), the cache\nhit rate quickly climbs to 85% - 95%. The Consistent Hashing ring ensures that requests for the\nsame prefix always hit the same Redis node, maximizing cache utilization.\nWrite Reduction (Batching):\nThe BatchSearchWriter groups search events and performs bulk upserts every 30 seconds or\n100 requests.\nUnder heavy load (e.g., 100 searches submitted), this results in exactly 1 database transaction\ninstead of 100, yielding a ~99% reduction in database write I/O operations.\n6. Design Choices and Trade-offs\n1. In-Memory Trie with Precomputed Top 10",
+    "index": 8,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 9,
+    "text": "this results in exactly 1 database transaction\ninstead of 100, yielding a ~99% reduction in database write I/O operations.\n6. Design Choices and Trade-offs\n1. In-Memory Trie with Precomputed Top 10\nChoice: Storing a list of the top 10 suggestions directly on every TrieNode rather than traversing the entire\nsubtree at query time. Trade-off: This significantly increases the memory footprint of the Trie (spatial\ncomplexity) in exchange for blistering fast read performance ( time complexity). Since read speed is\nparamount for typeahead systems, sacrificing memory for CPU/Latency is the optimal choice.\n2. Consistent Hashing over Simple Modulo Hashing\nChoice: Implementing a Consistent Hash Ring with 50 virtual replicas per physical Redis node. Trade-off:\nAdds slight algorithmic complexity to cache routing. However, it prevents massive cache invalidation (cache\navalanches) if a Redis node goes down or is added. Only  of the keys need to be remapped, compared to",
+    "index": 9,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 10,
+    "text": "algorithmic complexity to cache routing. However, it prevents massive cache invalidation (cache\navalanches) if a Redis node goes down or is added. Only  of the keys need to be remapped, compared to\nnearly 100% with simple hash(key) % N.\n3. Asynchronous Batch Writing\nChoice: Pushing incoming /api/search POST requests to an in-memory queue that flushes to PostgreSQL\nevery 30 seconds or upon reaching 100 items. Trade-off: Massive reduction in database lock contention and\nIOPS. The trade-off is durability: if the backend container crashes unexpectedly, up to 30 seconds of search\ntelemetry currently residing in RAM will be lost. For search telemetry, eventual consistency and high\navailability are preferred over strict ACID durability.\n4. Recency-Weighted Trending Algorithm\nChoice: Calculating scores using: 0.7 * (all_time_volume) + 0.3 * (recent_1h_24h_7d_activity).\nTrade-off: Provides a highly dynamic, \"TikTok-style\" trending feel where sudden spikes in niche queries",
+    "index": 10,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  },
+  {
+    "embeddingId": 11,
+    "text": "Calculating scores using: 0.7 * (all_time_volume) + 0.3 * (recent_1h_24h_7d_activity).\nTrade-off: Provides a highly dynamic, \"TikTok-style\" trending feel where sudden spikes in niche queries\nquickly surface to autocomplete. The trade-off is computational cost: it requires a background thread to run\nexpensive SQL aggregations and completely rebuild the Trie every 60 seconds. To mitigate read-blocking, the\nTrie is rebuilt in the background and hot-swapped atomically.\nO(L)\nO(L)\n1/N\nfinal_submission.md2026-06-22\n5 / 5",
+    "index": 11,
+    "sourceFilename": "final_submission.pdf",
+    "documentId": "72441177-1c19-4206-83d1-6d77a825b00f"
+  }
+]

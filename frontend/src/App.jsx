@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-
-const API = "https://notebooklm-gcqi.onrender.com";
+const API = "http://localhost:3001";
+// const API = "https://notebooklm-gcqi.onrender.com";
 
 function UploadZone({ onUpload, isLoading }) {
   const [dragging, setDragging] = useState(false);
@@ -39,7 +39,7 @@ function UploadZone({ onUpload, isLoading }) {
         {isLoading ? "Processing document..." : "Drop your document here"}
       </div>
       <div style={{ color: "var(--muted)", fontSize: "12px" }}>
-        {isLoading ? "Chunking → Embedding → Indexing into Qdrant" : "PDF or TXT · Max 20MB · Click or drag"}
+        {isLoading ? "Chunking → Embedding → Indexing into FAISS" : "PDF or TXT · Max 50MB · Click or drag"}
       </div>
       {isLoading && (
         <div style={{ marginTop: "20px", display: "flex", gap: "6px", justifyContent: "center" }}>
@@ -144,9 +144,20 @@ export default function App() {
     const formData = new FormData();
     formData.append("file", file);
 
+    console.log("--- API CALL: POST /upload ---");
+    console.log("URL:", `${API}/upload`);
+    console.log("Method: POST");
+    console.log("Headers: FormData (multipart/form-data)");
+    console.log("Payload:", file.name, file.size, "bytes");
+
     try {
       const res = await fetch(`${API}/upload`, { method: "POST", body: formData });
       const data = await res.json();
+      
+      console.log("--- RESPONSE: POST /upload ---");
+      console.log("Status:", res.status);
+      console.log("Body:", data);
+
       if (!res.ok) throw new Error(data.error || "Upload failed");
       setDoc(data);
       setMessages([{
@@ -155,6 +166,7 @@ export default function App() {
       }]);
       setTimeout(() => inputRef.current?.focus(), 100);
     } catch (err) {
+      console.error("--- ERROR: POST /upload ---", err);
       setError(err.message);
     } finally {
       setUploading(false);
@@ -162,20 +174,33 @@ export default function App() {
   };
 
   const handleAsk = async () => {
-    if (!input.trim() || !doc || thinking) return;
+    if (!input.trim() || !doc?.documentId || thinking) return;
     const question = input.trim();
     setInput("");
     setMessages(prev => [...prev, { role: "user", content: question }]);
     setThinking(true);
     setError(null);
 
+    const payload = { question, documentId: doc.documentId };
+
+    console.log("--- API CALL: POST /ask ---");
+    console.log("URL:", `${API}/ask`);
+    console.log("Method: POST");
+    console.log("Headers: { 'Content-Type': 'application/json' }");
+    console.log("Payload:", JSON.stringify(payload, null, 2));
+
     try {
       const res = await fetch(`${API}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question, collectionName: doc.collectionName }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
+      
+      console.log("--- RESPONSE: POST /ask ---");
+      console.log("Status:", res.status);
+      console.log("Body:", data);
+
       if (!res.ok) throw new Error(data.error || "Query failed");
       setMessages(prev => [...prev, {
         role: "assistant",
@@ -183,6 +208,7 @@ export default function App() {
         sources: data.sources,
       }]);
     } catch (err) {
+      console.error("--- ERROR: POST /ask ---", err);
       setError(err.message);
     } finally {
       setThinking(false);
@@ -213,7 +239,7 @@ export default function App() {
               NotebookLM
             </div>
             <div style={{ fontSize: "10px", color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-              RAG · Groq · Qdrant
+              RAG · Groq · FAISS
             </div>
           </div>
         </div>
@@ -266,7 +292,7 @@ export default function App() {
                 ["01", "PDF Parsed", "✓"],
                 ["02", `${doc.chunkCount} Chunks Created`, "✓"],
                 ["03", "Embedded (MiniLM-L6)", "✓"],
-                ["04", "Stored in Qdrant", "✓"],
+                ["04", "Stored in FAISS", "✓"],
                 ["05", "Ready for RAG", "✓"],
               ].map(([num, label, status]) => (
                 <div key={num} style={{
@@ -292,8 +318,8 @@ export default function App() {
             {[
               ["LLM", "Groq llama-3.3-70b"],
               ["Embeddings", "MiniLM-L6-v2 (384d)"],
-              ["Vector DB", "Qdrant Cloud"],
-              ["Chunking", "Fixed-size + overlap"],
+              ["Vector DB", "Local FAISS"],
+              ["Chunking", "Recursive Character"],
             ].map(([k, v]) => (
               <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", fontSize: "11px", borderBottom: "1px solid var(--border)" }}>
                 <span style={{ color: "var(--muted)" }}>{k}</span>
@@ -338,7 +364,7 @@ export default function App() {
                   borderTopColor: "var(--accent2)", borderRadius: "50%",
                   animation: "spin 0.8s linear infinite",
                 }} />
-                Retrieving from Qdrant · Generating with Groq...
+                Retrieving from FAISS · Generating with Groq...
               </div>
             )}
 
@@ -372,8 +398,8 @@ export default function App() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleAsk(); } }}
-              placeholder={doc ? "Ask anything about your document..." : "Upload a document first..."}
-              disabled={!doc || thinking}
+              placeholder={doc?.documentId ? "Ask anything about your document..." : "Upload a document first..."}
+              disabled={!doc?.documentId || thinking}
               rows={1}
               style={{
                 flex: 1,
@@ -387,17 +413,17 @@ export default function App() {
                 resize: "none",
                 maxHeight: "120px",
                 transition: "border-color 0.2s",
-                opacity: !doc ? 0.5 : 1,
+                opacity: !doc?.documentId ? 0.5 : 1,
               }}
               onFocus={e => e.target.style.borderColor = "var(--accent)"}
               onBlur={e => e.target.style.borderColor = "var(--border)"}
             />
             <button
               onClick={handleAsk}
-              disabled={!doc || !input.trim() || thinking}
+              disabled={!doc?.documentId || !input.trim() || thinking}
               style={{
-                background: doc && input.trim() && !thinking ? "var(--accent)" : "var(--surface2)",
-                color: doc && input.trim() && !thinking ? "#000" : "var(--muted)",
+                background: doc?.documentId && input.trim() && !thinking ? "var(--accent)" : "var(--surface2)",
+                color: doc?.documentId && input.trim() && !thinking ? "#000" : "var(--muted)",
                 border: "none",
                 borderRadius: "10px",
                 padding: "12px 20px",

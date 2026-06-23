@@ -17,5 +17,12 @@ export async function embedText(text) {
   return Array.from(output.data);
 }
 
+export async function embedBatch(texts) {
+  if (!texts || texts.length === 0) return [];
+  const embed = await getEmbedder();
+  const output = await embed(texts, { pooling: "mean", normalize: true });
+  return output.tolist();
+}
+
 // VECTOR SIZE for all-MiniLM-L6-v2 is 384
 export const VECTOR_SIZE = 384;
